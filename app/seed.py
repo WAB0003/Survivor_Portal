@@ -3,7 +3,10 @@ from faker import Faker
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import *
+from rich.console import Console
 import random
+
+console = Console()
 
 
 if __name__ == '__main__':

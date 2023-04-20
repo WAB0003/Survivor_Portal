@@ -37,8 +37,8 @@ class Contestant(Base):
     def __repr__(self):
         return f"""
         Player ID:\t{self.id}
-        Name:\t{self.name}
-        age:\t{self.age}
+        Name:\t\t{self.name}
+        age:\t\t{self.age}
     """
     
 class Result(Base):
