@@ -53,8 +53,7 @@ Type * for a list of All Seasons or type the season NUMBER to see info
             manage_seasons_display(season_input)
 
         else: 
-            print("Error")
-            pass
+            end()
     #!Character Page
     def manage_characters_display(character_input):
         clear()
@@ -76,7 +75,7 @@ Type Character Name from Above to view
         elif character_input == "menu":
             main_menu()
         elif character_input == "exit":
-            pass
+            end()
         #* SINGLE OR MULTIPLE SURVIVOR CONTESTANTS
         else:
             clear()
@@ -116,19 +115,57 @@ Type the season NUMBER from above to see info
         
         elif season_input=="exit" or season_input=="menu":
             menu_or_exit(season_input)
-        #!For some reason i don't think input is  nuber
+       
         else:            
             query = session.query(Season).filter(Season.id == int(season_input)).first()
+            console.print(f"{query}\n",style="bold underline purple")
+            result_input = input("""
+Would you like to see the results of this season (y)?
+                               Type 'menu' to go back to Menu
+                               Type exit to end cli
+>>>""")     
+            manage_season_results(result_input,season_num = season_input)
+            
+            
+    #! Season Results     
+    def manage_season_results(result_input,season_num):
+        if result_input == "y":
+            query = session.query(Result).filter(Result.season == int(season_num)).first()
             print(query)
-            
-            
-            
+            new_input = input("""
+                               Type 'menu' to go back to Menu
+                               Type exit to end cli
+>>>""")
+            menu_or_exit(new_input)
+                
+        elif result_input=="exit" or result_input=="menu":
+            menu_or_exit(result_input)
+        
+        else:
+            end()
+        
+        
+    
+    
             
     def menu_or_exit(input):
         if input=="menu":
             main_menu()
         elif input =="exit":
-            pass
+            end()
+    def end():
+        clear()
+        print("""
+   _____                    _  _                   _ 
+  / ____|                  | || |                 | |
+ | |  __   ___    ___    __| || |__   _   _   ___ | |
+ | | |_ | / _ \  / _ \  / _` || '_ \ | | | | / _ \| |
+ | |__| || (_) || (_) || (_| || |_) || |_| ||  __/|_|
+  \_____| \___/  \___/  \__,_||_.__/  \__, | \___|(_)
+                                       __/ |         
+                                      |___/          
+""")
+        
                 
         
 
@@ -136,6 +173,5 @@ Type the season NUMBER from above to see info
   # Now we call the method once outside of the definition, but inside the "__main__"
     main_menu()
     
-  # Goodbye Message
-    clear()
-    print("Thanks for using my CLI!")
+  # Goodbye Messag
+    end()

@@ -52,17 +52,22 @@ class Result(Base):
     fifth = Column(Integer(), ForeignKey("contestants.id"))
     sixth = Column(Integer(), ForeignKey("contestants.id"))
     winner = Column(Integer(), ForeignKey("contestants.id"))
+    
+    
+    
+    def get_first_name(self):
+        return session.query(Contestant.name).filter(Contestant.id == self.first)
+        
 
     def __repr__(self):
         return f"""
-        Result: {self.id}
-        Season: {self.season}
-        Order of Dropouts:
-                {self.first}
-                {self.second}
-                {self.third}
-                {self.fourth} 
-                {self.fifth}
-                {self.sixth}
-        Winner: {self.winner}
+        Results for Season: {self.season}
+        Order of Contestant Dropouts:
+            first:  {session.query(Contestant.name).filter_by(id=self.first).first()[0]}
+                    {session.query(Contestant.name).filter_by(id=self.second).first()[0]}
+                    {session.query(Contestant.name).filter_by(id=self.third).first()[0]}
+                    {session.query(Contestant.name).filter_by(id=self.fourth).first()[0]}
+                    {session.query(Contestant.name).filter_by(id=self.fifth).first()[0]}
+                    {session.query(Contestant.name).filter_by(id=self.sixth).first()[0]}
+            Winner: {session.query(Contestant.name).filter_by(id=self.winner).first()[0]}
     """
