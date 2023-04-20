@@ -18,7 +18,7 @@ if __name__ == '__main__':
     def main_menu():
         clear()
         #ASCII TEXT
-        console.print("""
+        console.print(r"""
    _____   _    _   _____   __      __  _____  __      __   ____    _____  
   / ____| | |  | | |  __ \  \ \    / / |_   _| \ \    / /  / __ \  |  __ \ 
  | (___   | |  | | | |__) |  \ \  / /    | |    \ \  / /  | |  | | | |__) |
@@ -51,7 +51,7 @@ Type * for a list of All Seasons or type the season NUMBER to see info
                                 Type exit to end cli
 >>>""")
             manage_seasons_display(season_input)
-            pass
+
         else: 
             print("Error")
             pass
@@ -106,11 +106,12 @@ Type Character Name from Above to view
             all_seasons = session.query(Season).all()
             for season in all_seasons:
                 print(f'Season {season.id}: {season.name}')
-            season_input = input("""
+            season_num = input("""
 Type the season NUMBER from above to see info
                                Type 'menu' to go back to Menu
                                Type exit to end cli
 >>>""")     
+            season_input = int(season_num)
             manage_seasons_display(season_input)
         
         elif season_input=="exit" or season_input=="menu":
@@ -118,9 +119,7 @@ Type the season NUMBER from above to see info
         #!For some reason i don't think input is  nuber
         else:            
             query = session.query(Season).filter(Season.id == int(season_input)).first()
-            if query:
-                for each_query in query:
-                    print(each_query)  
+            print(query)
             
             
             
